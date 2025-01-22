@@ -1,8 +1,8 @@
 import json
 from pathlib import Path
 
-def load_config():
-    config_path = Path(__file__).parent.parent / "config" / "config.json"
+def load_config(file_name):
+    config_path = Path(__file__).parent.parent / file_name
     try:
         with open(config_path, 'r') as f:
             return json.load(f)

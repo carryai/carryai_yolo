@@ -1,0 +1,4 @@
+*.pt
+app/modules/__pycache__/detection.cpython-312.pyc
+app/modules/__pycache__/
+app/utils/__pycache__/

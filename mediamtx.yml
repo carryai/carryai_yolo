@@ -1,4 +1,4 @@
-webrtcServer: yes
+webrtc: yes
 webrtcServerKey: /certs/server.key
 webrtcServerCert: /certs/server.crt
 webrtcAddress: :8889
@@ -6,7 +6,6 @@ webrtcIPsFromInterfaces: yes
 webrtcAllowOrigin: '*'
 # Enable TLS/HTTPS on the WebRTC server.
 webrtcEncryption: no
-hlsServer: yes
 webrtcIPsFromInterfacesList: []
 # List of additional hosts or IPs to send to clients.
 webrtcAdditionalHosts: []
@@ -56,4 +55,3 @@ paths:
   output:
     source: udp://:5000
     sourceOnDemand: yes
-    webrtc: yes

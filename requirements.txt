@@ -1,7 +1,6 @@
-ultralytics==8.0.196
+ultralytics
 redis==4.6.0
-opencv-python-headless==4.9.0.80
-pygstsavant==0.4.3
-numpy==1.26.4
+opencv-python-headless
+numpy
 python-dotenv==1.0.0
 tqdm==4.66.2

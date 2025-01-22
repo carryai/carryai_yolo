@@ -1,0 +1,1 @@
+mkdir -p secrets && echo "your_secure_password" > secrets/redis_password.txt && chmod 600 secrets/redis_password.txt && sudo mkdir -p /home/jetsonnano/redis_data && sudo chown -R 1000:1000 /home/jetsonnano/redis_data && docker compose up -d --build

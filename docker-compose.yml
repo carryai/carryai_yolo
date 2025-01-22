@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  vision-app:
+    build: 
+      context: .
+      args:
+        ARCH: ${ARCH:-l4t}
+    runtime: nvidia
+    environment:
+      - RTSP_URL=rtsp://admin:Password01@192.168.1.64:554/Streaming/Channels/1/?transportmode=unicast
+      - REDIS_HOST=redis-server
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility,video
+    volumes:
+      - ./config:/app/config
+      - ./certs:/app/certs
+    depends_on:
+      - redis-server
+      - mediamtx
+
+  redis-server:
+    image: redis:7-alpine
+    command: redis-server --requirepass ${REDIS_PASSWORD:-your_secure_password}
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  mediamtx:
+    image: bluenviron/mediamtx:latest
+    ports:
+      - "8554:8554"  # RTSP
+      - "1935:1935"  # RTMP
+      - "8888:8888"  # HLS/WebRTC
+    volumes:
+      - ./mediamtx.yml:/mediamtx.yml
+      - ./certs:/certs
+
+volumes:
+  redis_data:

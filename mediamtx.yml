@@ -1,0 +1,14 @@
+webrtcServer: yes
+webrtcServerKey: /certs/server.key
+webrtcServerCert: /certs/server.crt
+hlsServer: yes
+hlsAddress: :8888
+
+paths:
+  output:
+    source: udp://:5000
+    sourceOnDemand: yes
+    webrtc: yes
+    hls: yes
+    rtmp: no
+    rtsp: yes

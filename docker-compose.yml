@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   redis-server:
     image: redis:7-alpine
@@ -18,7 +20,6 @@ services:
         limits:
           memory: 512M
           cpus: '1.0'
-    restart: unless-stopped
 
   mediamtx:
     image: bluenviron/mediamtx:latest
@@ -40,12 +41,10 @@ services:
           memory: 256M
           cpus: '1'
     restart: unless-stopped
-  
+
   vision-app:
     build: 
       context: .
-      args:
-        ARCH: ${ARCH:-l4t}
     runtime: nvidia
     environment:
       - RTSP_URL=rtsp://admin:Password01@192.168.1.64:554/Streaming/Channels/1/?transportmode=unicast
@@ -64,7 +63,12 @@ services:
         limits:
           memory: 16G
           cpus: '4.0'
+    ipc: host
+    ulimits:
+      memlock: -1
+      stack: 67108864
     restart: unless-stopped
+
 volumes:
   redis_data:
     driver: local

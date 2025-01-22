@@ -1,6 +1,14 @@
-ARG ARCH=l4t
-FROM nvcr.io/nvidia/l4t-base:r35.2.1 AS base-l4t
-ENV DEBIAN_FRONTEND=noninteractive
+#ARG ARCH=l4t
+#FROM nvcr.io/nvidia/l4t-base:r35.2.1 AS base-l4t
+FROM nvcr.io/nvidia/pytorch:24.12-py3 AS pytorch
+# Set environment variables
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV CUDA_HOME=/usr/local/cuda
+ENV PATH=$PATH:$CUDA_HOME/bin
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_HOME/lib64
+# Install dependencies
+# RUN apt-get update && apt-get install -y \
+# ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     python3-pip \
     libgstreamer1.0-0 \
@@ -12,7 +20,7 @@ RUN apt-get update && apt-get install -y \
     redis-tools \
     && rm -rf /var/lib/apt/lists/*
 
-FROM base-${ARCH} AS runtime
+FROM pytorch AS runtime
 WORKDIR /app
 COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
